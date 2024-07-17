@@ -55,6 +55,10 @@ export const ProductGrid = ({ products }) => {
   // Gunakan sortedProductsByPrice jika ada sortir dipilih, jika tidak, gunakan sortedProducts
   const displayedProducts = sortOption ? sortedProductsByPrice : sortedProducts;
 
+  function formatRupiah(number) {
+    return number.toLocaleString("id-ID");
+  }
+
   return (
     <div className="bg-base-100">
       <div className="w-full flex justify-end">
@@ -119,7 +123,9 @@ export const ProductGrid = ({ products }) => {
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
-                <Link to={`/product/${product.product_slug}/${product.sku}`}>
+                <Link
+                  to={`/product/${product.product_slug}/${product.article_name}`}
+                >
                   <img
                     alt={product.product_name}
                     src={
@@ -134,12 +140,12 @@ export const ProductGrid = ({ products }) => {
                     {product.price_disc !== 0 ? (
                       <>
                         <span className="opacity-30 line-through pr-2">
-                          IDR {product.price}
+                          IDR {formatRupiah(product.price)}
                         </span>
-                        <span>IDR {product.price_disc}</span>
+                        <span>IDR {formatRupiah(product.price_discount)}</span>
                       </>
                     ) : (
-                      <span>IDR {product.price}</span>
+                      <span>IDR {formatRupiah(product.price)}</span>
                     )}
                   </div>
                 </Link>
@@ -164,7 +170,9 @@ export const ProductGrid = ({ products }) => {
               onMouseEnter={() => setHoveredProduct(product.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <Link to={`/product/${product.product_slug}/${product.sku}`}>
+              <Link
+                to={`/product/${product.product_slug}/${product.article_name}`}
+              >
                 <img
                   alt={product.product_name}
                   width={762}

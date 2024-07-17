@@ -11,8 +11,8 @@ export const ProductView = () => {
   const { productSlug, productSku } = useParams();
   const [productDetail, setProductDetail] = useState([]);
   const [dataSizes, setDataSizes] = useState([]);
-  const [dataColor, setDataColor] = useState([]);
   const [dataImages, setDataImages] = useState([]);
+  const [dataColor, setDataColor] = useState([]); // This is not needed for this component, it's only used in ProductViewDetail component.
   const [relateProduct, setRelateProduct] = useState([]);
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export const ProductView = () => {
       .then((res) => {
         setProductDetail(res.data.productDetail);
         setDataSizes(res.data.data_sizes);
-        setDataColor(res.data.data_article);
         setDataImages(res.data.data_images);
+        setDataColor(res.data.data_article);
         setRelateProduct(res.data.productRelated);
       })
       .catch((error) => {

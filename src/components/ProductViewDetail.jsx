@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
 export const ProductViewDetail = ({ productDetail, dataSizes, dataColor }) => {
@@ -26,39 +25,50 @@ export const ProductViewDetail = ({ productDetail, dataSizes, dataColor }) => {
     setSelectedSize(sizeId);
   };
 
+  const formatRupiah = (number) => {
+    if (number === undefined || number === null) {
+      return "0"; // atau bisa mengembalikan string kosong atau pesan error sesuai kebutuhan
+    }
+    return number.toLocaleString("id-ID");
+  };
+
   return (
     <div className="mx-5 md:mx-16 my-5 md:my-10">
-      <div className="grid grid-cols-4 gap-6">
+      <div className="lg:grid grid-cols-4 gap-6">
         <p className="uppercase text-xs small">Item</p>
-        <h1 className="text-2xl col-span-3 text-right">
+        <h1 className="text-xl col-span-3 text-right">
           {productDetail.product_name}
         </h1>
       </div>
 
-      <div className="flex justify-between w-full my-10">
+      <div className="flex justify-between items-center w-full my-10">
         <p className="text-xs small uppercase">Price</p>
 
         {productDetail.price_disc !== 0 ? (
           <div className="text-right mx-2">
             <span className="opacity-30 line-through pr-2 text-sm">
-              IDR {productDetail.price}
+              IDR {formatRupiah(productDetail.price)}
             </span>
-            <span className="text-sm">IDR {productDetail.price_disc}</span>
+            <span className="text-sm">
+              IDR {formatRupiah(productDetail.price_disc)}
+            </span>
           </div>
         ) : (
           <span className="no-discount text-sm mx-2">
-            IDR {productDetail.price}
+            IDR {formatRupiah(productDetail.price)}
           </span>
         )}
       </div>
 
       <div className="my-10">
-        <div className="flex justify-between w-full">
+        <div className="w-full">
           <p className="text-xs small uppercase">Color</p>
           <div className="text-right">
             {dataColor.map((article) => (
               <label key={article.id} className="mx-2 select-label">
-                <a href={`/product/${article.product_slug}/${article.sku}`}>
+                <a
+                  href={`/product/${article.product_slug}/${article.article_name}`}
+                >
                   <input
                     type="radio"
                     name="color"
@@ -81,7 +91,7 @@ export const ProductViewDetail = ({ productDetail, dataSizes, dataColor }) => {
       </div>
 
       <div className="my-10">
-        <div className="flex justify-between w-full">
+        <div className="w-full">
           <p className="text-xs small uppercase">Size</p>
           <div className="text-end">
             {dataSizes.map((sizeItem) => (

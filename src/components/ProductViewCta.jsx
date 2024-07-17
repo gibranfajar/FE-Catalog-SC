@@ -20,7 +20,7 @@ export const ProductViewCta = ({ relateProduct }) => {
           {productsToShow.slice(0, 4).map((item, index) => (
             <div className="bg-slate-100" key={index}>
               <Link
-                to={`/product/${item.product_slug}/${item.sku}`}
+                to={`/product/${item.product_slug}/${item.article_name}`}
                 onClick={window.location.reload}
               >
                 <img src={import.meta.env.VITE_IMG_STORAGE + item.image1}></img>
